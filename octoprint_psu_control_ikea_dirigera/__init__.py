@@ -1,8 +1,8 @@
 # coding=utf-8
 from __future__ import absolute_import
-import dirigera
 
 import octoprint.plugin
+import dirigera
 
 class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
