@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_PSU_Control_IKEA_Dirigera/templates *
+recursive-include octoprint_PSU_Control_IKEA_Dirigera/translations *
+recursive-include octoprint_PSU_Control_IKEA_Dirigera/static *
