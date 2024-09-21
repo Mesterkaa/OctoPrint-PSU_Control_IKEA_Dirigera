@@ -10,7 +10,6 @@ class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
 ):
 
     def __init__(self):
-        self._logger.info("Init PSU Control - IKEA Dirigera")
         self.config = dict()
         self.hub = None
 
