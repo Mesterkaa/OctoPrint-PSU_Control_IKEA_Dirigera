@@ -31,6 +31,9 @@ class Psu_control_ikea_dirigeraPlugin(
     def get_settings_version(self):
         return 1
 
+    def on_settings_initialized(self):
+        self.reload_settings()
+
     def reload_settings(self):
         for key, value in self.get_settings_defaults().items():
             if type(value) == str:
@@ -64,6 +67,7 @@ class Psu_control_ikea_dirigeraPlugin(
 
     def _init_hub(self):
         self._logger.info("Initializing Hub")
+        self.reload_settings()
         if self.config['Token'] is not None and self.config['IP'] is not None:
             self._logger.info("Hub initialized")
             self.hub = dirigera.Hub(
@@ -88,7 +92,7 @@ class Psu_control_ikea_dirigeraPlugin(
     def get_psu_state(self):
         if self.hub is not None and self.config['Outlet_Name'] is not None:
             smart_plug = self.hub.get_outlet_by_name(self.config['Outlet_Name'])
-            return smart_plug.attributes.is_on()
+            return smart_plug.attributes.is_on
         return False
 
     def get_template_configs(self):

@@ -21,4 +21,6 @@ office_light_1.set_light(lamp_on=False)
 print(lights) """
 
 smart_plug = dirigera_hub.get_outlet_by_name("3D Printer")
-smart_plug.set_on(outlet_on=False)
+isOn = smart_plug.attributes.is_on()
+
+i = 1
