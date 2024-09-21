@@ -4,9 +4,11 @@ from __future__ import absolute_import
 import octoprint.plugin
 import dirigera
 
-class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
+class Psu_control_ikea_dirigeraPlugin(
+    octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
-    octoprint.plugin.TemplatePlugin
+    octoprint.plugin.TemplatePlugin,
+    octoprint.plugin.StartupPlugin,
 ):
 
     def __init__(self):
