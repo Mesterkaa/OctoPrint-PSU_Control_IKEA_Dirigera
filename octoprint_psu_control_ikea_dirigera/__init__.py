@@ -10,6 +10,7 @@ class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
 ):
 
     def __init__(self):
+        self._logger.info("Init PSU Control - IKEA Dirigera")
         self.config = dict()
         self.hub = None
 
@@ -50,6 +51,7 @@ class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
         pass
 
     def on_startup(self, host, port):
+        self._logger.info("Starting up PSU Control - IKEA Dirigera")
         psucontrol_helpers = self._plugin_manager.get_helpers("psucontrol")
         if not psucontrol_helpers or 'register_plugin' not in psucontrol_helpers.keys():
             self._logger.warning("The version of PSUControl that is installed does not support plugin registration.")
@@ -101,7 +103,7 @@ class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
         # for details.
         return {
             "PSU_Control_IKEA_Dirigera": {
-                "displayName": "Psu_control_ikea_dirigera Plugin",
+                "displayName": "PSU Control - IKEA Dirigera Plugin",
                 "displayVersion": self._plugin_version,
 
                 # version check: github repository
@@ -119,7 +121,7 @@ class Psu_control_ikea_dirigeraPlugin(octoprint.plugin.SettingsPlugin,
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
 # can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
-## __plugin_name__ = "PSU Control - IKEA Dirigera"
+__plugin_name__ = "PSU Control - IKEA Dirigera"
 
 
 # Set the Python version your plugin is compatible with below. Recommended is Python 3 only for all new plugins.
