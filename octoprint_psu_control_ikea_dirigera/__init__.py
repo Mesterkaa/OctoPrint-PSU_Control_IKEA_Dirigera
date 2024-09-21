@@ -63,11 +63,11 @@ class Psu_control_ikea_dirigeraPlugin(
 
         self._logger.debug("Registering plugin with PSUControl")
         psucontrol_helpers['register_plugin'](self)
+        self.reload_settings()
         self._init_hub()
 
     def _init_hub(self):
         self._logger.info("Initializing Hub")
-        self.reload_settings()
         if self.config['Token'] is not None and self.config['IP'] is not None:
             self._logger.info("Hub initialized")
             self.hub = dirigera.Hub(
