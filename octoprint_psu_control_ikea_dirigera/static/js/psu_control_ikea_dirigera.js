@@ -1,58 +1,57 @@
 $(function() {
     function PSUDirigeraViewModel(parameters) {
-        var self = this;
 
-        self.settings = parameters[0];
+        this.settings = parameters[0];
 
-        self.code = ""
-        self.code_verifier = ""
+        this.code = ""
+        this.code_verifier = ""
 
-        self.Token = ko.observable();
-        self.IP = ko.observable();
-        self.Outlet_Name = ko.observable();
+        this.Token = ko.observable();
+        this.IP = ko.observable();
+        this.Outlet_Name = ko.observable();
 
         // this will be called when the user clicks the "Go" button and set the iframe's URL to
         // the entered URL
-        self.goToUrl = function() {
-            self.currentUrl(self.newUrl());
+        this.goToUrl = function() {
+            this.currentUrl(this.newUrl());
         };
-        self.sendChallenge = function() {
+        this.sendChallenge = function() {
             console.log("Sending challenge");
-            console.log(self.IP());
-            if (self.IP() == undefined || self.IP() == "") {
+            console.log(this.IP());
+            if (this.IP() == undefined || this.IP() == "") {
                 console.log("IP is empty");
                 alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
                 return;
             }
-            OctoPrint.simpleApiCommand('PSU_Control_IKEA_Dirigera', 'sendChallenge', {ip_address: self.IP()})
+            OctoPrint.simpleApiCommand('PSU_Control_IKEA_Dirigera', 'sendChallenge', {ip_address: this.IP()})
             .done(function(result) {
                 console.log(result);
                 if (result["error"] != undefined) {
                     alert(result["error"]);
                 }
-                self.code = result["code"];
-                self.code_verifier = result["code_verifier"];
+                this.code = result["code"];
+                this.code_verifier = result["code_verifier"];
             })
             .fail(function(error) {
                 console.error("Failed to send challenge: ", error);
             });
 
         };
-        self.getToken = function() {
+        this.getToken = function() {
             console.log("Getting token");
-            console.log(self.IP());
-            if (self.IP() == undefined || self.IP() == "") {
+            console.log(this.IP());
+            if (this.IP() == undefined || this.IP() == "") {
                 console.log("IP is empty");
                 alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
                 return;
             }
-            OctoPrint.simpleApiCommand('PSU_Control_IKEA_Dirigera', 'getToken', {ip_address: self.IP()})
+            OctoPrint.simpleApiCommand('PSU_Control_IKEA_Dirigera', 'getToken', {ip_address: this.IP()})
             .done(function(result) {
                 console.log(result);
                 if (result["error"] != undefined) {
                     alert(result["error"]);
                 }
-                self.Token(result["token"]);
+                this.Token(result["token"]);
             })
             .fail(function(error) {
                 console.error("Failed to get token: ", error);
@@ -63,15 +62,15 @@ $(function() {
         // dependencies have already been initialized. It is especially guaranteed that this method
         // gets called _after_ the settings have been retrieved from the OctoPrint backend and thus
         // the SettingsViewModel been properly populated.
-        self.onBeforeBinding = function() {
-            self.IP(self.settings.settings.plugins.psu_control_ikea_dirigera.IP());
-            self.Outlet_Name(self.settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name());
-            self.Token(self.settings.settings.plugins.psu_control_ikea_dirigera.Token());
-            console.log(self);
+        this.onBeforeBinding = function() {
+            this.IP(this.settings.settings.plugins.psu_control_ikea_dirigera.IP());
+            this.Outlet_Name(this.settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name());
+            this.Token(this.settings.settings.plugins.psu_control_ikea_dirigera.Token());
+            console.log(this);
         }
     }
 
-    // This is how our plugin registers itself with the application, by adding some configuration
+    // This is how our plugin registers itthis with the application, by adding some configuration
     // information to the global variable OCTOPRINT_VIEWMODELS
     OCTOPRINT_VIEWMODELS.push({
         // This is the constructor to call for instantiating the plugin
