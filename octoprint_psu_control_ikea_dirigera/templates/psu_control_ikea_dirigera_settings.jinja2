@@ -7,19 +7,22 @@
     <div class="control-group">
         <label class="control-label">Hub IP Address</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psu_control_ikea_dirigera.IP" placeholder="192.168.0.0">
+            <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.IP" placeholder="192.168.0.0">
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">Generated Token</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psu_control_ikea_dirigera.Token" placeholder="">
+            <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.Token" placeholder="">
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">Outlet Name</label>
         <div class="controls">
-            <input type="type" class="input" data-bind="value: settings.plugins.psu_control_ikea_dirigera.Outlet_Name" placeholder="3D Printer">
+            <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name" placeholder="3D Printer">
         </div>
     </div>
+
+    <button class="btn" data-bind="click: function(){ sendChallenge(); }">SendChallenge</button>
+    <button class="btn" data-bind="click: function(){ getToken(); }">GetToken</button>
 </form>

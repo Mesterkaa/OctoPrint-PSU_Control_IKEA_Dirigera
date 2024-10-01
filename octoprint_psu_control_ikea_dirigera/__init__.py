@@ -3,6 +3,11 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 import dirigera
+import dirigera.hub.auth as dirigera_auth
+import string
+
+ALPHABET = f"_-~.{string.ascii_letters}{string.digits}"
+CODE_LENGTH = 128
 
 class Psu_control_ikea_dirigeraPlugin(
     octoprint.plugin.SettingsPlugin,
@@ -25,6 +30,7 @@ class Psu_control_ikea_dirigeraPlugin(
         )
 
     def on_settings_save(self, data):
+        self._logger.info(data)
         octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
         self.reload_settings()
 
@@ -95,10 +101,42 @@ class Psu_control_ikea_dirigeraPlugin(
             return smart_plug.attributes.is_on
         return False
 
-    def get_template_configs(self):
-        return [
-            dict(type="settings", custom_bindings=False)
-        ]
+    def get_assets(self):
+        return dict(
+            js=["js/psu_control_ikea_dirigera.js"]
+        )
+
+    def on_api_commands(self, command, data):
+        import flask
+        if command == "sendChallenge":
+            if "ip_address" in data:
+                ip = data['ip_address']
+                self._logger.info("IP address provided for command: %s" % ip)
+
+                code_verifier = dirigera_auth.random_code(dirigera_auth.ALPHABET, dirigera_auth.CODE_LENGTH)
+                code = dirigera_auth.send_challenge(ip, code_verifier)
+                return flask.jsonify(code=code, code_verifier=code_verifier)
+            else:
+                self._logger.error("No IP address provided")
+                return flask.jsonify(error="No IP address provided")
+
+        elif command == "getToken":
+            if "ip_address" in data and "code" in data and "code_verifier" in data:
+                ip = data['ip_address']
+                code = data['code']
+                code_verifier = data['code_verifier']
+                token = dirigera_auth.get_token(ip, code, code_verifier)
+                return flask.jsonify(token=token)
+            else:
+                self._logger.error("Missing data for getToken")
+                return flask.jsonify(error="Missing data for getToken")
+        else:
+            self._logger.error("Unknown command: %s" % command)
+
+    ##def get_template_configs(self):
+    ##    return [
+    ##        dict(type="settings", custom_bindings=False)
+    ##    ]
 
     ##~~ Softwareupdate hook
 
