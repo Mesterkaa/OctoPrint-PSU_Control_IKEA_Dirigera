@@ -10,10 +10,10 @@ $(function() {
         this.IP = ko.observable();
         this.Outlet_Name = ko.observable();
 
-        this.SendChallengeSuccess = ko.observable(false);
+        this.SendChallengeSuccess = ko.observable(undefined);
         this.SendChallengeSent = ko.observable(false);
         this.sendChallengeResponse = ko.observable("");
-        this.GetTokenSuccess = ko.observable(false);
+        this.GetTokenSuccess = ko.observable(undefined);
         this.getTokenSent = ko.observable(false);
         this.getTokenResponse = ko.observable("");
 
@@ -29,7 +29,7 @@ $(function() {
             this.SendChallengeSent(true);
             this.ClearGetToken();
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
-            .done(function(response) {
+            .done((response) => {
 
                 this.sendChallengeResponse(response);
                 this.SendChallengeSuccess(true);
@@ -39,7 +39,7 @@ $(function() {
                 this.code_verifier = response["code_verifier"];
                 alert("Successfully sent challenge. Please press the button on the IKEA Dirigera device to authorize the plugin. Then press get token");
             })
-            .fail(function(response) {
+            .fail((response) => {
                 var error = response.responseJSON.error;
 
                 if (error && error.includes("Already one ongoing pairing request")){
@@ -65,17 +65,15 @@ $(function() {
             this.getTokenSent(true);
 
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
-            .done(function(response) {
+            .done((response) => {
                 console.log(response);
                 this.getTokenResponse(response);
                 this.GetTokenSuccess(true);
-
-
                 this.ClearSendChallenge();
 
                 this.Token(response["token"]);
             })
-            .fail(function(response) {
+            .fail((response) => {
                 var error = response.responseJSON.error;
 
                 if (error && error.includes("Button not pressed or presence time stamp timed out")){
@@ -91,12 +89,12 @@ $(function() {
         }
 
         this.ClearSendChallenge = function() {
-            this.SendChallengeSuccess(false);
+            this.SendChallengeSuccess(undefined);
             this.SendChallengeSent(false);
             this.sendChallengeResponse("");
         }
         this.ClearGetToken = function() {
-            this.GetTokenSuccess(false);
+            this.GetTokenSuccess(undefined);
             this.getTokenSent(false);
             this.getTokenResponse("");
         }

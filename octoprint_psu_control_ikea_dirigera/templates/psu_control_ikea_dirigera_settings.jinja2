@@ -29,11 +29,11 @@
     </div>
     <!-- ko if: SendChallengeSent -->
     <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: SendChallengeSuccess -->
+    <!-- ko if: SendChallengeSuccess === true -->
     <span class="help-inline label">Success!!<br>Data: <span data-bind="text: sendChallengeResponse"></span></span>
     <!-- /ko -->
-    <!-- ko ifnot: SendChallengeSuccess -->
-    <span class="help-inline label label-important">Failed!!<br>Data: <span data-bind="text: sendChallengeResponse"></span></span>
+    <!-- ko if: SendChallengeSuccess === false -->
+    <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
 
@@ -50,11 +50,11 @@
     </div>
     <!-- ko if: getTokenSent -->
     <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: GetTokenSuccess -->
+    <!-- ko if: GetTokenSuccess === true -->
     <span class="help-inline label">Success!!<br>Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
-    <!-- ko ifnot: GetTokenSuccess -->
-    <span class="help-inline label label-important">Failed!!<br>Data: <span data-bind="text: getTokenResponse"></span></span>
+    <!-- ko if: GetTokenSuccess === false -->
+    <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
 
