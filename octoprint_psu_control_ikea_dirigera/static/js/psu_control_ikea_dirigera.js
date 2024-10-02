@@ -28,9 +28,6 @@ $(function() {
 
                 console.log(response);
                 data = response.responseJSON
-                if (data["error"] != undefined) {
-                    alert(data["error"]);
-                }
                 this.code = data["code"];
                 this.code_verifier = data["code_verifier"];
             })
@@ -52,9 +49,6 @@ $(function() {
             .done(function(result) {
                 console.log(response);
                 data = response.responseJSON;
-                if (data["error"] != undefined) {
-                    alert(data["error"]);
-                }
                 this.Token(data["token"]);
             })
             .fail(function(response) {

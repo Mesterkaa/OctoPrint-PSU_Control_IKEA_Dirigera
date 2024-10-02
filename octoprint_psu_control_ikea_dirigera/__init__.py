@@ -14,6 +14,7 @@ class Psu_control_ikea_dirigeraPlugin(
     octoprint.plugin.AssetPlugin,
     octoprint.plugin.TemplatePlugin,
     octoprint.plugin.StartupPlugin,
+    octoprint.plugin.SimpleApiPlugin
 ):
 
     def __init__(self):
@@ -107,10 +108,12 @@ class Psu_control_ikea_dirigeraPlugin(
         )
 
     def get_api_commands(self):
-        return dict(
+        commands = dict(
             sendChallenge=["ip_address"],
             getToken=["ip_address", "code", "code_verifier"],
         )
+        self._logger.info("commands: %s" % commands)
+        return commands
 
     def on_api_commands(self, command, data):
         self._logger.info("API command: %s" % command)
