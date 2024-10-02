@@ -5,6 +5,7 @@ import octoprint.plugin
 import dirigera
 import dirigera.hub.auth as dirigera_auth
 import string
+import requests
 
 ALPHABET = f"_-~.{string.ascii_letters}{string.digits}"
 CODE_LENGTH = 128
@@ -124,9 +125,10 @@ class Psu_control_ikea_dirigeraPlugin(
                 ip = data['ip_address']
                 self._logger.info("IP address provided for command: %s" % ip)
 
-                code_verifier = dirigera_auth.random_code(dirigera_auth.ALPHABET, dirigera_auth.CODE_LENGTH)
-                code = dirigera_auth.send_challenge(ip, code_verifier)
-                return flask.jsonify(code=code, code_verifier=code_verifier)
+                sendChallengeResult = self.sendChallenge(ip)
+                if "error" in sendChallengeResult:
+                    return flask.abort(400, error=sendChallengeResult["error"])
+                return flask.jsonify(code=sendChallengeResult["code"], code_verifier=sendChallengeResult["code_verifier"])
             else:
                 self._logger.error("No IP address provided")
                 return flask.abort(400, "No IP address provided")
@@ -136,13 +138,75 @@ class Psu_control_ikea_dirigeraPlugin(
                 ip = data['ip_address']
                 code = data['code']
                 code_verifier = data['code_verifier']
-                token = dirigera_auth.get_token(ip, code, code_verifier)
-                return flask.jsonify(token=token)
+                getTokenResult = self.getToken(ip, code, code_verifier)
+                if "error" in getTokenResult:
+                    return flask.abort(400, error=getTokenResult["error"])
+                return flask.jsonify(token=getTokenResult["token"])
             else:
                 self._logger.error("Missing data for getToken")
-                return flask.abort(400, "Missing data for getToken")
+                return flask.abort(400, "Error: Missing data for getToken")
         else:
             self._logger.error("Unknown command: %s" % command)
+
+    def sendChallenge(self, ip_address):
+        code_verifier = dirigera_auth.random_code(dirigera_auth.ALPHABET, dirigera_auth.CODE_LENGTH)
+        auth_url = f"https://{ip_address}:8443/v1/oauth/authorize"
+        params = {
+            "audience": "homesmart.local",
+            "response_type": "code",
+            "code_challenge": dirigera_auth.code_challenge(code_verifier),
+            "code_challenge_method": "S256",
+        }
+        error = "Unknown Error"
+        response = requests.get(auth_url, params=params, verify=False, timeout=10)
+        json = response.json()
+        if response.status_code != 200:
+
+            if "error" in json:
+                error = "Error: %s" % json["error"]
+            else:
+                error = "Unknown Error: %s" % json
+            return dict(
+                error=error
+            )
+        if "code" not in json:
+            error = "Unknown Response: %s" % json
+        return dict(
+            code=json["code"],
+            code_verifier=code_verifier,
+        )
+
+    def getToken(self, ip_address, code, code_verifier):
+        data = str(
+            "code="
+            + code
+            + "&name="
+            + socket.gethostname()
+            + "&grant_type="
+            + "authorization_code"
+            + "&code_verifier="
+            + code_verifier
+        )
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
+        token_url = f"https://{ip_address}:8443/v1/oauth/token"
+
+        response = requests.post(
+            token_url, headers=headers, data=data, verify=False, timeout=10
+        )
+        json = response.json()
+        if response.status_code != 200:
+            if "error" in json:
+                error = "Error: %s" % json["error"]
+            else:
+                error = "Unknown Error: %s" % json
+            return dict(
+                error=error
+            )
+        if "access_token" not in json:
+            error = "Unknown Response: %s" % json
+        return dict(
+            token=json["access_token"]
+        )
 
     ##def get_template_configs(self):
     ##    return [
