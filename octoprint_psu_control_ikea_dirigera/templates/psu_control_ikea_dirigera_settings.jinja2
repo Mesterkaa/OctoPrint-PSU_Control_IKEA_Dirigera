@@ -1,18 +1,16 @@
 <!-- ko ifnot: settings.settings.plugins.psucontrol -->
 <span class="help-inline label label-important">This plugin requires <a href="https://plugins.octoprint.org/plugins/psucontrol/" target="_blank">PSU Control</a> in order to function. It can be installed from the Plugin Manager.</span>
 <!-- /ko -->
-<form class="form-horizontal"></form>
+<form class="form-horizontal">
     <h3>Generate Token</h3>
-    <br>
     <h4>Step 1: Enter Outlet Name</h4>
-    <p>Can be found and edited in the IKEA "Home Smart" App</p>
     <div class="control-group">
         <label class="control-label">Outlet Name</label>
         <div class="controls">
             <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name" placeholder="3D Printer">
+            <span class="help-inline">This is the name of the outlet in the IKEA "Home Smart" App</span>
         </div>
     </div>
-    <br>
     <h4>Step 2: Enter IP Address</h4>
     <div class="control-group">
         <label class="control-label">Hub IP Address</label>
@@ -20,44 +18,43 @@
             <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.IP" placeholder="192.168.0.0">
         </div>
     </div>
-    <br>
     <h4>Step 3: Send Challenge to IKEA Dirigera</h4>
     <div class="control-group">
         <div class="controls">
             <button class="btn" data-bind="click: function(){ sendChallenge(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP">Send Challenge</button>
+                <!-- ko if: SendChallengeSent() === "true"-->
+                <span class="help-inline label">Challenge Sent</span>
+                <!-- ko if: SendChallengeSuccess() === "true" -->
+                <span class="help-inline label label-success">Success</span></span>
+                <!-- /ko -->
+                <!-- ko if: SendChallengeSuccess() === "false" -->
+                <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
+                <!-- /ko -->
+                <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: SendChallengeSent() === "true"-->
-    <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: SendChallengeSuccess() === "true" -->
-    <span class="help-inline label label-success">Success</span></span>
-    <!-- /ko -->
-    <!-- ko if: SendChallengeSuccess() === "false" -->
-    <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
-    <!-- /ko -->
-    <!-- /ko -->
-    <br>
     <h4>Step 4: Click Action Button</h4>
     <div class="control-group">
-        <p>The "Action" Button can be found on the bottom of the IKEA Dirigera</p>
+        <div class="controls">
+            <span class="help-inline">Click the "Action" Button on the IKEA Dirigera</span>
+            <span class="help-inline">Can be found on the bottom of the device</span>
+         </div>
     </div>
-    <br>
     <h4>Step 5: Generate Token</h4>
     <div class="control-group">
         <div class="controls">
             <button class="btn" data-bind="click: function(){ getToken(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP">Get Token</button>
+            <!-- ko if: getTokenSent() === "true" -->
+            <span class="help-inline label">Challenge Sent</span>
+            <!-- ko if: GetTokenSuccess() === "true" -->
+            <span class="help-inline label label-success">Success</span>
+            <!-- /ko -->
+            <!-- ko if: GetTokenSuccess() === "false" -->
+            <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
+            <!-- /ko -->
+            <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: getTokenSent() === "true" -->
-    <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: GetTokenSuccess() === "true" -->
-    <span class="help-inline label label-success">Success</span>
-    <!-- /ko -->
-    <!-- ko if: GetTokenSuccess() === "false" -->
-    <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
-    <!-- /ko -->
-    <!-- /ko -->
-
     <!-- ko if: settings.settings.plugins.psu_control_ikea_dirigera.Token && settings.settings.plugins.psu_control_ikea_dirigera.Token().length >= 1 -->
     <div class="control-group">
         <label class="control-label">Generated Token</label>
@@ -69,5 +66,9 @@
 
     <br>
     <h4>Step 6: Remember to Save</h4>
-    <p>If at a later point the IP or Outlet Name is changed, but it's the same IKEA Dirigera device, no need to generate a new token</p>
+    <div class="control-group">
+        <div class="controls">
+            <span class="help-inline">If at a later point the IP or Outlet Name is changed, but it's the same IKEA Dirigera device, no need to generate a new token</span>
+         </div>
+    </div>
 </form>
