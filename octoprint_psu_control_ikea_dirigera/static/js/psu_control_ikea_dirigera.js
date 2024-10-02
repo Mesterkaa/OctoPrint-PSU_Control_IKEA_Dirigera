@@ -18,11 +18,8 @@ $(function() {
         this.getTokenResponse = ko.observable("");
 
         this.sendChallenge = function() {
-            console.log("Sending challenge");
-            console.log(this.IP());
             if (this.IP() == undefined || this.IP() == "") {
-                console.log("IP is empty");
-                alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
+                console.warn("IP is empty");
                 return;
             }
 
@@ -40,31 +37,20 @@ $(function() {
             })
             .fail((response) => {
                 var error = response.responseJSON.error;
-
-                if (error && error.includes("Already one ongoing pairing request")){
-                    //TODO tell the user to go to the next step
-                    console.log("Already one ongoing pairing request");
-                }
-                console.error(response);
-                this.sendChallengeResponse(JSON.stringify(response.responseJSON));
+                this.sendChallengeResponse(JSON.stringify(error));
                 this.SendChallengeSuccess("false");
-
-
             });
 
         };
         this.getToken = function() {
-            console.log("Getting token");
-            console.log(this.IP());
             if (this.IP() == undefined || this.IP() == "") {
-                console.log("IP is empty");
+                console.warn("IP is empty");
                 return;
             }
             this.getTokenSent("true");
 
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
             .done((response) => {
-                console.log(response);
                 this.getTokenResponse(JSON.stringify(response));
                 this.GetTokenSuccess("true");
                 this.ClearSendChallenge();
@@ -74,14 +60,7 @@ $(function() {
             })
             .fail((response) => {
                 var error = response.responseJSON.error;
-
-                if (error && error.includes("Button not pressed or presence time stamp timed out")){
-                    //TODO tell the user to press the button again
-                    console.log("Button not pressed or presence time stamp timed out");
-                }
-
-                console.error(response);
-                this.getTokenResponse(JSON.stringify(response.responseJSON));
+                this.getTokenResponse(JSON.stringify(error));
                 this.GetTokenSuccess("false");
             });
 

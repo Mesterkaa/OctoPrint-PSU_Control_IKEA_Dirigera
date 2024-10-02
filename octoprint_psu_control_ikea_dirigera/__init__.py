@@ -104,10 +104,7 @@ class Psu_control_ikea_dirigeraPlugin(
             return smart_plug.attributes.is_on
         return False
 
-    def get_assets(self):
-        return dict(
-            js=["js/psu_control_ikea_dirigera.js"]
-        )
+
 
     def get_api_commands(self):
         commands = dict(
@@ -227,7 +224,11 @@ class Psu_control_ikea_dirigeraPlugin(
     ##    ]
 
     ##~~ Softwareupdate hook
-
+    def get_assets(self):
+        return dict(
+            js=["js/psu_control_ikea_dirigera.js"],
+            css=["css/psu_control_ikea_dirigera.css"]
+        )
     def get_update_information(self):
         # Define the configuration for your plugin to use with the Software Update
         # Plugin here. See https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html
