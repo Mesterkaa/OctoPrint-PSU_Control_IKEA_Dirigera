@@ -33,7 +33,7 @@ plugin_url = "https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera"
 plugin_license = "AGPLv3"
 
 # Any additional requirements besides OctoPrint should be listed here
-plugin_requires = ["dirigera", "string", "random", "requests", "socket", "flask", "sys", "urllib3"]
+plugin_requires = ["dirigera"]
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point

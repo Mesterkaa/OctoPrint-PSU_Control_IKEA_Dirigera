@@ -27,7 +27,7 @@ $(function() {
             .done(function(response) {
 
                 console.log(response);
-                data = JSON.parse(response.responseJSON);
+                data = response.responseJSON
                 if (data["error"] != undefined) {
                     alert(data["error"]);
                 }
@@ -35,7 +35,7 @@ $(function() {
                 this.code_verifier = data["code_verifier"];
             })
             .fail(function(response) {
-                var error = JSON.parse(response.responseJSON);
+                var error = response.responseJSON.error;
                 console.error("Failed to send challenge: ", error);
             });
 
@@ -51,14 +51,14 @@ $(function() {
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP()})
             .done(function(result) {
                 console.log(response);
-                data = JSON.parse(response.responseJSON);
+                data = response.responseJSON;
                 if (data["error"] != undefined) {
                     alert(data["error"]);
                 }
                 this.Token(data["token"]);
             })
             .fail(function(response) {
-                var error = JSON.parse(response.responseJSON);
+                var error = response.responseJSON.error;
                 console.error("Failed to get token: ", error);
             });
 

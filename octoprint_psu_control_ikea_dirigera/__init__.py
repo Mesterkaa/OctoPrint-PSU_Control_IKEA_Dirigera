@@ -109,9 +109,12 @@ class Psu_control_ikea_dirigeraPlugin(
     def get_api_commands(self):
         return dict(
             sendChallenge=["ip_address"],
-            getToken=["ip_address", "code", "code_verifier"]
+            getToken=["ip_address", "code", "code_verifier"],
         )
+
     def on_api_commands(self, command, data):
+        self._logger.info("API command: %s" % command)
+        self._logger.info("Data: %s" % data)
         import flask
         if command == "sendChallenge":
             if "ip_address" in data:
