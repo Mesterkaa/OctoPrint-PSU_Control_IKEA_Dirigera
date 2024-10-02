@@ -25,6 +25,8 @@ $(function() {
 
             this.SendChallengeSent("true");
             this.ClearGetToken();
+            this.ClearSendChallenge();
+
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
             .done((response) => {
 
@@ -53,7 +55,6 @@ $(function() {
             .done((response) => {
                 this.getTokenResponse(JSON.stringify(response));
                 this.GetTokenSuccess("true");
-                this.ClearSendChallenge();
 
                 this.Token(response["token"]);
                 this.settings.settings.plugins.psu_control_ikea_dirigera.Token(response["token"])
