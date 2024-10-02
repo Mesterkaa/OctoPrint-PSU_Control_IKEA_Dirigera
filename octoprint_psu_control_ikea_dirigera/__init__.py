@@ -106,6 +106,11 @@ class Psu_control_ikea_dirigeraPlugin(
             js=["js/psu_control_ikea_dirigera.js"]
         )
 
+    def get_api_commands(self):
+        return dict(
+            sendChallenge=["ip_address"],
+            getToken=["ip_address", "code", "code_verifier"]
+        )
     def on_api_commands(self, command, data):
         import flask
         if command == "sendChallenge":
@@ -118,7 +123,7 @@ class Psu_control_ikea_dirigeraPlugin(
                 return flask.jsonify(code=code, code_verifier=code_verifier)
             else:
                 self._logger.error("No IP address provided")
-                return flask.jsonify(error="No IP address provided")
+                return flask.abort(400, "No IP address provided")
 
         elif command == "getToken":
             if "ip_address" in data and "code" in data and "code_verifier" in data:
@@ -129,7 +134,7 @@ class Psu_control_ikea_dirigeraPlugin(
                 return flask.jsonify(token=token)
             else:
                 self._logger.error("Missing data for getToken")
-                return flask.jsonify(error="Missing data for getToken")
+                return flask.abort(400, "Missing data for getToken")
         else:
             self._logger.error("Unknown command: %s" % command)
 

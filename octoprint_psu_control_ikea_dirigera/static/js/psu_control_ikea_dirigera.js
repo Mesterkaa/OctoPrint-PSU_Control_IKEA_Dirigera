@@ -23,16 +23,19 @@ $(function() {
                 alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
                 return;
             }
-            OctoPrint.simpleApiCommand('PSU_Control_IKEA_Dirigera', 'sendChallenge', {ip_address: this.IP()})
-            .done(function(result) {
-                console.log(result);
-                if (result["error"] != undefined) {
-                    alert(result["error"]);
+            OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
+            .done(function(response) {
+
+                console.log(response);
+                data = JSON.parse(response.responseJSON);
+                if (data["error"] != undefined) {
+                    alert(data["error"]);
                 }
-                this.code = result["code"];
-                this.code_verifier = result["code_verifier"];
+                this.code = data["code"];
+                this.code_verifier = data["code_verifier"];
             })
-            .fail(function(error) {
+            .fail(function(response) {
+                var error = JSON.parse(response.responseJSON);
                 console.error("Failed to send challenge: ", error);
             });
 
@@ -45,15 +48,17 @@ $(function() {
                 alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
                 return;
             }
-            OctoPrint.simpleApiCommand('PSU_Control_IKEA_Dirigera', 'getToken', {ip_address: this.IP()})
+            OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP()})
             .done(function(result) {
-                console.log(result);
-                if (result["error"] != undefined) {
-                    alert(result["error"]);
+                console.log(response);
+                data = JSON.parse(response.responseJSON);
+                if (data["error"] != undefined) {
+                    alert(data["error"]);
                 }
-                this.Token(result["token"]);
+                this.Token(data["token"]);
             })
-            .fail(function(error) {
+            .fail(function(response) {
+                var error = JSON.parse(response.responseJSON);
                 console.error("Failed to get token: ", error);
             });
 
