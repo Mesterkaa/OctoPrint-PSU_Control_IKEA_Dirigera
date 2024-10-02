@@ -10,11 +10,11 @@ $(function() {
         this.IP = ko.observable();
         this.Outlet_Name = ko.observable();
 
-        this.SendChallengeSuccess = ko.observable(undefined);
-        this.SendChallengeSent = ko.observable(false);
+        this.SendChallengeSuccess = ko.observable("undefined");
+        this.SendChallengeSent = ko.observable("false");
         this.sendChallengeResponse = ko.observable("");
-        this.GetTokenSuccess = ko.observable(undefined);
-        this.getTokenSent = ko.observable(false);
+        this.GetTokenSuccess = ko.observable("undefined");
+        this.getTokenSent = ko.observable("false");
         this.getTokenResponse = ko.observable("");
 
         this.sendChallenge = function() {
@@ -26,13 +26,13 @@ $(function() {
                 return;
             }
 
-            this.SendChallengeSent(true);
+            this.SendChallengeSent("true");
             this.ClearGetToken();
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
             .done((response) => {
 
                 this.sendChallengeResponse(response);
-                this.SendChallengeSuccess(true);
+                this.SendChallengeSuccess("true");
 
                 console.log(response);
                 this.code = response["code"];
@@ -48,7 +48,7 @@ $(function() {
                 }
                 console.error(response);
                 this.sendChallengeResponse(response.responseJSON);
-                this.SendChallengeSuccess(false);
+                this.SendChallengeSuccess("false");
 
 
             });
@@ -62,16 +62,17 @@ $(function() {
                 alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
                 return;
             }
-            this.getTokenSent(true);
+            this.getTokenSent("true");
 
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
             .done((response) => {
                 console.log(response);
                 this.getTokenResponse(response);
-                this.GetTokenSuccess(true);
+                this.GetTokenSuccess("true");
                 this.ClearSendChallenge();
 
                 this.Token(response["token"]);
+                this.settings.settings.plugins.psu_control_ikea_dirigera.Token(response["token"])
             })
             .fail((response) => {
                 var error = response.responseJSON.error;
@@ -83,19 +84,19 @@ $(function() {
 
                 console.error(response);
                 this.getTokenResponse(response.responseJSON);
-                this.GetTokenSuccess(false);
+                this.GetTokenSuccess("false");
             });
 
         }
 
         this.ClearSendChallenge = function() {
-            this.SendChallengeSuccess(undefined);
-            this.SendChallengeSent(false);
+            this.SendChallengeSuccess("undefined");
+            this.SendChallengeSent("false");
             this.sendChallengeResponse("");
         }
         this.ClearGetToken = function() {
-            this.GetTokenSuccess(undefined);
-            this.getTokenSent(false);
+            this.GetTokenSuccess("undefined");
+            this.getTokenSent("false");
             this.getTokenResponse("");
         }
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its

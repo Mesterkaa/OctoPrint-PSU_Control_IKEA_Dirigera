@@ -27,12 +27,12 @@
             <button class="btn" data-bind="click: function(){ sendChallenge(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP">Send Challenge</button>
         </div>
     </div>
-    <!-- ko if: SendChallengeSent() -->
+    <!-- ko if: SendChallengeSent() === "true"-->
     <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: SendChallengeSuccess() === true -->
+    <!-- ko if: SendChallengeSuccess() === "true" -->
     <span class="help-inline label">Success!!<br>Data: <span data-bind="text: sendChallengeResponse"></span></span>
     <!-- /ko -->
-    <!-- ko if: SendChallengeSuccess() === false -->
+    <!-- ko if: SendChallengeSuccess() === "false" -->
     <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
@@ -48,12 +48,12 @@
             <button class="btn" data-bind="click: function(){ getToken(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP">Get Token</button>
         </div>
     </div>
-    <!-- ko if: getTokenSent() -->
+    <!-- ko if: getTokenSent() === "true" -->
     <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: GetTokenSuccess() === true -->
+    <!-- ko if: GetTokenSuccess() === "true" -->
     <span class="help-inline label">Success!!<br>Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
-    <!-- ko if: GetTokenSuccess() === false -->
+    <!-- ko if: GetTokenSuccess() === "false" -->
     <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
