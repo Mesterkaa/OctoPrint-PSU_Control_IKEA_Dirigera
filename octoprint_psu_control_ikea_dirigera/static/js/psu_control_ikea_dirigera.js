@@ -10,10 +10,10 @@ $(function() {
         this.IP = ko.observable();
         this.Outlet_Name = ko.observable();
 
-        this.SendChallengeSuccess = ko.observable("undefined");
+        this.SendChallengeSuccess = ko.observable("");
         this.SendChallengeSent = ko.observable("false");
         this.sendChallengeResponse = ko.observable("");
-        this.GetTokenSuccess = ko.observable("undefined");
+        this.GetTokenSuccess = ko.observable("");
         this.getTokenSent = ko.observable("false");
         this.getTokenResponse = ko.observable("");
 
@@ -31,13 +31,12 @@ $(function() {
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
             .done((response) => {
 
-                this.sendChallengeResponse(response);
+                this.sendChallengeResponse(JSON.stringify(response));
                 this.SendChallengeSuccess("true");
 
                 console.log(response);
                 this.code = response["code"];
                 this.code_verifier = response["code_verifier"];
-                alert("Successfully sent challenge. Please press the button on the IKEA Dirigera device to authorize the plugin. Then press get token");
             })
             .fail((response) => {
                 var error = response.responseJSON.error;
@@ -47,7 +46,7 @@ $(function() {
                     console.log("Already one ongoing pairing request");
                 }
                 console.error(response);
-                this.sendChallengeResponse(response.responseJSON);
+                this.sendChallengeResponse(JSON.stringify(response.responseJSON));
                 this.SendChallengeSuccess("false");
 
 
@@ -59,7 +58,6 @@ $(function() {
             console.log(this.IP());
             if (this.IP() == undefined || this.IP() == "") {
                 console.log("IP is empty");
-                alert("IP is empty. Please enter the IP of the IKEA Dirigera device.");
                 return;
             }
             this.getTokenSent("true");
@@ -67,7 +65,7 @@ $(function() {
             OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
             .done((response) => {
                 console.log(response);
-                this.getTokenResponse(response);
+                this.getTokenResponse(JSON.stringify(response));
                 this.GetTokenSuccess("true");
                 this.ClearSendChallenge();
 
@@ -83,19 +81,19 @@ $(function() {
                 }
 
                 console.error(response);
-                this.getTokenResponse(response.responseJSON);
+                this.getTokenResponse(JSON.stringify(response.responseJSON));
                 this.GetTokenSuccess("false");
             });
 
         }
 
         this.ClearSendChallenge = function() {
-            this.SendChallengeSuccess("undefined");
+            this.SendChallengeSuccess("");
             this.SendChallengeSent("false");
             this.sendChallengeResponse("");
         }
         this.ClearGetToken = function() {
-            this.GetTokenSuccess("undefined");
+            this.GetTokenSuccess("");
             this.getTokenSent("false");
             this.getTokenResponse("");
         }
