@@ -115,7 +115,7 @@ class Psu_control_ikea_dirigeraPlugin(
         self._logger.info("commands: %s" % commands)
         return commands
 
-    def on_api_commands(self, command, data):
+    def on_api_command(self, command, data):
         self._logger.info("API command: %s" % command)
         self._logger.info("Data: %s" % data)
         import flask
