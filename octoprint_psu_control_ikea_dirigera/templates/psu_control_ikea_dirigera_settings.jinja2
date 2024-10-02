@@ -30,7 +30,7 @@
     <!-- ko if: SendChallengeSent() === "true"-->
     <span class="help-inline label">Challenge Sent</span>
     <!-- ko if: SendChallengeSuccess() === "true" -->
-    <span class="help-inline label">Success!!<br>Data: <span data-bind="text: sendChallengeResponse"></span></span>
+    <span class="help-inline label-success">Success</span></span>
     <!-- /ko -->
     <!-- ko if: SendChallengeSuccess() === "false" -->
     <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
@@ -51,14 +51,14 @@
     <!-- ko if: getTokenSent() === "true" -->
     <span class="help-inline label">Challenge Sent</span>
     <!-- ko if: GetTokenSuccess() === "true" -->
-    <span class="help-inline label">Success!!<br>Data: <span data-bind="text: getTokenResponse"></span></span>
+    <span class="help-inline label-success">Success</span>
     <!-- /ko -->
     <!-- ko if: GetTokenSuccess() === "false" -->
     <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
 
-    <!-- ko if: settings.settings.plugins.psu_control_ikea_dirigera.Token && settings.settings.plugins.psu_control_ikea_dirigera.Token() !== "" -->
+    <!-- ko if: settings.settings.plugins.psu_control_ikea_dirigera.Token && settings.settings.plugins.psu_control_ikea_dirigera.Token().length >== 1 -->
     <div class="control-group"></div>
         <label class="control-label">Token Display</label>
         <div class="controls">
