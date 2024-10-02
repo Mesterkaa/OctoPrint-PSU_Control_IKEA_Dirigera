@@ -6,6 +6,7 @@ import dirigera
 import dirigera.hub.auth as dirigera_auth
 import string
 import requests
+import socket
 
 ALPHABET = f"_-~.{string.ascii_letters}{string.digits}"
 CODE_LENGTH = 128
@@ -76,7 +77,7 @@ class Psu_control_ikea_dirigeraPlugin(
 
     def _init_hub(self):
         self._logger.info("Initializing Hub")
-        if self.config['Token'] is not None and self.config['IP'] is not None:
+        if self.config['Token'] is not None and self.config['Token'] is not "" and self.config['IP'] is not None and self.config['IP'] is not "":
             self._logger.info("Hub initialized")
             self.hub = dirigera.Hub(
                 token=self.config['Token'],

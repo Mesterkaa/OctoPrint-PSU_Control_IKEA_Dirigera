@@ -3,7 +3,7 @@
 <!-- /ko -->
 <form class="form-horizontal"></form>
     <h3>Generate Token</h3>
-
+    <br>
     <h4>Step 1: Enter Outlet Name</h4>
     <p>Can be found and edited in the IKEA "Home Smart" App</p>
     <div class="control-group">
@@ -12,7 +12,7 @@
             <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name" placeholder="3D Printer">
         </div>
     </div>
-
+    <br>
     <h4>Step 2: Enter IP Address</h4>
     <div class="control-group">
         <label class="control-label">Hub IP Address</label>
@@ -20,40 +20,40 @@
             <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.IP" placeholder="192.168.0.0">
         </div>
     </div>
-
+    <br>
     <h4>Step 3: Send Challenge to IKEA Dirigera</h4>
     <div class="control-group">
         <div class="controls">
             <button class="btn" data-bind="click: function(){ sendChallenge(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP">Send Challenge</button>
         </div>
     </div>
-    <!-- ko if: SendChallengeSent -->
+    <!-- ko if: SendChallengeSent() -->
     <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: SendChallengeSuccess === true -->
+    <!-- ko if: SendChallengeSuccess() === true -->
     <span class="help-inline label">Success!!<br>Data: <span data-bind="text: sendChallengeResponse"></span></span>
     <!-- /ko -->
-    <!-- ko if: SendChallengeSuccess === false -->
+    <!-- ko if: SendChallengeSuccess() === false -->
     <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
-
+    <br>
     <h4>Step 4: Click Action Button</h4>
     <div class="control-group">
         <p>The "Action" Button can be found on the bottom of the IKEA Dirigera</p>
     </div>
-
+    <br>
     <h4>Step 5: Generate Token</h4>
     <div class="control-group">
         <div class="controls">
             <button class="btn" data-bind="click: function(){ getToken(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP">Get Token</button>
         </div>
     </div>
-    <!-- ko if: getTokenSent -->
+    <!-- ko if: getTokenSent() -->
     <span class="help-inline label">Challenge Sent</span>
-    <!-- ko if: GetTokenSuccess === true -->
+    <!-- ko if: GetTokenSuccess() === true -->
     <span class="help-inline label">Success!!<br>Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
-    <!-- ko if: GetTokenSuccess === false -->
+    <!-- ko if: GetTokenSuccess() === false -->
     <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
     <!-- /ko -->
     <!-- /ko -->
