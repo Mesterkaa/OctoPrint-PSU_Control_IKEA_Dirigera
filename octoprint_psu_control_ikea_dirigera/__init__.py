@@ -117,6 +117,8 @@ class Psu_control_ikea_dirigeraPlugin(
         self._logger.info("commands: %s" % commands)
         return commands
 
+
+
     def on_api_command(self, command, data):
         self._logger.info("API command: %s" % command)
         self._logger.info("Data: %s" % data)
@@ -128,7 +130,10 @@ class Psu_control_ikea_dirigeraPlugin(
 
                 sendChallengeResult = self.sendChallenge(ip)
                 if "error" in sendChallengeResult:
-                    return flask.abort(400, error=sendChallengeResult["error"])
+                    errorResponse = flask.jsonify(error=sendChallengeResult["error"])
+                    errorResponse.status_code = 400
+                    return flask.abort(errorResponse)
+
                 return flask.jsonify(code=sendChallengeResult["code"], code_verifier=sendChallengeResult["code_verifier"])
             else:
                 self._logger.error("No IP address provided")
@@ -136,18 +141,25 @@ class Psu_control_ikea_dirigeraPlugin(
 
         elif command == "getToken":
             if "ip_address" in data and "code" in data and "code_verifier" in data:
+
                 ip = data['ip_address']
                 code = data['code']
                 code_verifier = data['code_verifier']
                 getTokenResult = self.getToken(ip, code, code_verifier)
+
                 if "error" in getTokenResult:
-                    return flask.abort(400, error=getTokenResult["error"])
+                    errorResponse = flask.jsonify(error=getTokenResult["error"])
+                    errorResponse.status_code = 400
+                    return flask.abort(errorResponse)
+
                 return flask.jsonify(token=getTokenResult["token"])
             else:
                 self._logger.error("Missing data for getToken")
                 return flask.abort(400, "Error: Missing data for getToken")
         else:
             self._logger.error("Unknown command: %s" % command)
+
+
 
     def sendChallenge(self, ip_address):
         code_verifier = dirigera_auth.random_code(dirigera_auth.ALPHABET, dirigera_auth.CODE_LENGTH)
