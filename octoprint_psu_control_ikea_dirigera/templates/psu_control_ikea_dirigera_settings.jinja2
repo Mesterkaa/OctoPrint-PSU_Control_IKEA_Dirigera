@@ -58,17 +58,11 @@
     <!-- /ko -->
     <!-- /ko -->
 
-    <!-- ko if: settings.settings.plugins.psu_control_ikea_dirigera.Token && settings.settings.plugins.psu_control_ikea_dirigera.Token().length >== 1 -->
-    <div class="control-group">
-        <label class="control-label">Token Display</label>
-        <div class="controls">
-            <span data-bind="text: settings.settings.plugins.psu_control_ikea_dirigera.Token"></span>
-        </div>
-    </div>
+    <!-- ko if: settings.settings.plugins.psu_control_ikea_dirigera.Token && settings.settings.plugins.psu_control_ikea_dirigera.Token().length >= 1 -->
     <div class="control-group">
         <label class="control-label">Generated Token</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.Token" placeholder="" readonly>
+            <input type="text" class="input" data-bind="value: settings.settings.plugins.psu_control_ikea_dirigera.Token" placeholder="">
         </div>
     </div>
     <!-- /ko -->
