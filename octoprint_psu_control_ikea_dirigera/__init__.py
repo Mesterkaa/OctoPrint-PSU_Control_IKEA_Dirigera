@@ -251,7 +251,6 @@ class Psu_control_ikea_dirigeraPlugin(
         response = {}
         try:
             response = requests.post(token_url, headers=headers, data=data, verify=False, timeout=10)
-            response.raise_for_status()
         except requests.exceptions.ConnectTimeout as e:
             error = "Timeout. Check that the IP address is correct and that the device is on"
             return dict(
