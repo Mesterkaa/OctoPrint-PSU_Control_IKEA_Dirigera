@@ -3,44 +3,42 @@ layout: plugin
 
 id: PSU_Control_IKEA_Dirigera
 title: OctoPrint-Psu_control_ikea_dirigera
-description: TODO
+description: Adds IKEA Dirigera connected smart Outlet support to OctoPrint-PSUControl as a sub-plugin
 authors:
-- Anders Wolsing Kaa
+- Mesterkaa
 license: AGPLv3
 
 # TODO
-date: today's date in format YYYY-MM-DD, e.g. 2015-04-21
+date: 2024-10-03
 
 homepage: https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera
 source: https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera
 archive: https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera/archive/master.zip
 
 # TODO
-# Set this to true if your plugin uses the dependency_links setup parameter to include
-# library versions not yet published on PyPi. SHOULD ONLY BE USED IF THERE IS NO OTHER OPTION!
-#follow_dependency_links: false
-
-# TODO
 tags:
-- a list
-- of tags
-- that apply
-- to your plugin
-- (take a look at the existing plugins for what makes sense here)
+- control
+- power
+- psu
+- psucontrol
+- psucontrol subplugin
+- ikea
 
 # TODO
 # When registering a plugin on plugins.octoprint.org, all screenshots should be uploaded not linked from external sites.
 screenshots:
-- url: url of a screenshot, /assets/img/...
-  alt: alt-text of a screenshot
-  caption: caption of a screenshot
-- url: url of another screenshot, /assets/img/...
-  alt: alt-text of another screenshot
-  caption: caption of another screenshot
-- ...
+- url: /assets/img/Plugin
+  alt: Plugin Settings
+  caption: The PSU Control - IKEA Dirigera plugin settings
+- url: /assets/img/IKEAHomeSmart1
+  alt: IKEA Homesmart Device Name
+  caption: IKEA Homesmart Device name.
+- url: /assets/img/IKEAHomeSmart2
+  alt: IKEA Homesmart Device Settings
+  caption: IKEA Homesmart device settings
 
 # TODO
-featuredimage: url of a featured image for your plugin, /assets/img/...
+featuredimage: /assets/img/Plugin
 
 # TODO
 # You only need the following if your plugin requires specific OctoPrint versions or
@@ -48,54 +46,42 @@ featuredimage: url of a featured image for your plugin, /assets/img/...
 # "compatibility" block if this is not the case.
 
 compatibility:
-
-  # List of compatible versions
-  #
-  # A single version number will be interpretated as a minimum version requirement,
-  # e.g. "1.3.1" will show the plugin as compatible to OctoPrint versions 1.3.1 and up.
-  # More sophisticated version requirements can be modelled too by using PEP440
-  # compatible version specifiers.
-  #
-  # You can also remove the whole "octoprint" block. Removing it will default to all
-  # OctoPrint versions being supported.
-
-  octoprint:
-  - 1.4.0
-
-  # List of compatible operating systems
-  #
-  # Valid values:
-  #
-  # - windows
-  # - linux
-  # - macos
-  # - freebsd
-  #
-  # There are also two OS groups defined that get expanded on usage:
-  #
-  # - posix: linux, macos and freebsd
-  # - nix: linux and freebsd
-  #
-  # You can also remove the whole "os" block. Removing it will default to all
-  # operating systems being supported.
-
-  os:
-  - linux
-  - windows
-  - macos
-  - freebsd
-
-  # Compatible Python version
-  #
-  # It is recommended to only support Python 3 for new plugins, in which case this should be ">=3,<4"
-  #
-  # Plugins that wish to support both Python 2 and 3 should set it to ">=2.7,<4".
-  #
-  # Plugins that only support Python 2 will not be accepted into the plugin repository.
-
   python: ">=3,<4"
 
 ---
+# IKEA Dirigera PSU Control
+## About
 
-**TODO**: Longer description of your plugin, configuration examples etc. This part will be visible on the page at
-http://plugins.octoprint.org/plugin/PSU_Control_IKEA_Dirigera/
+IKEA Dirigera subplugin for [PSU Control](https://github.com/kantlivelong/OctoPrint-PSUControl).
+
+Add the ability to control any IKEA Smart outlet connected to IKEA Dirigera Hub, via the PSU Control Plugin.
+
+- Choose this plugin for Switching and/or sensing in [PSU Control](https://github.com/kantlivelong/OctoPrint-PSUControl) Settings.
+- Input Ikea Dirigera IP address, Outlet Name and generate a token and you are ready to go.
+
+## Configuration
+
+Follow the Step-To-Step guide in the Plugin settings.
+1. **Enter Outlet Name**
+    - The outlet name is the name given to the device in the IKEA "Home Smart" App.
+        - [Apple](https://apps.apple.com/us/app/ikea-home-smart/id1633226273)
+        - [Android](https://play.google.com/store/apps/details?id=com.ikea.inter.homesmart.system2)
+    - The name needs to be unique and can be edited in the app.
+2. **Enter IP Address**
+    - IP Address of the IKEA Dirigera Hub. The app sadly doesn't show it so it has be found in other ways e.g. your router settings.
+3. **Send Challenge**
+    - Click the button and await a succes.
+    - A **fail** will be followed by some error data that might give a hint of the error.
+4. **Click Action Button**
+    - On the buttom of the IKEA Dirigera device is a button label **Action**.
+    - Click this on.
+5. **Generate Token**
+    - Click the button and await a succes.
+    - A succesfull call will result in **token** in the "Generated Token" field.
+    - A **fail** will be followed by some error data that might give a hint of the error.
+6. **Test Connection (Optional)**
+    - Optionally you can test the connection
+    - On a succes you should see the current status of the outlet
+7. **Remeber to Save**
+    - The token has been fetched from the IKEA Dirigera but has yet to be saved.
+    - **Remeber to save!!**

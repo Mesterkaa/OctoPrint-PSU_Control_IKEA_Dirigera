@@ -33,11 +33,11 @@ $(function() {
                 this.sendChallengeResponse(JSON.stringify(response));
                 this.SendChallengeSuccess("true");
 
-                console.log(response);
                 this.code = response["code"];
                 this.code_verifier = response["code_verifier"];
             })
             .fail((response) => {
+                console.log(response);
                 var error = response.responseJSON.error;
                 this.sendChallengeResponse(JSON.stringify(error));
                 this.SendChallengeSuccess("false");
