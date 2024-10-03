@@ -110,6 +110,7 @@ class Psu_control_ikea_dirigeraPlugin(
         commands = dict(
             sendChallenge=["ip_address"],
             getToken=["ip_address", "code", "code_verifier"],
+            testConnection=["ip_address", "token", "outlet_name"],
         )
         self._logger.info("commands: %s" % commands)
         return commands
@@ -153,6 +154,40 @@ class Psu_control_ikea_dirigeraPlugin(
             else:
                 self._logger.error("Missing data for getToken")
                 return flask.abort(400, "Error: Missing data for getToken")
+
+        elif command == "testConnection":
+            if "ip_address" in data and "token" in data and "outlet_name" in data:
+                ip = data['ip_address']
+                token = data['token']
+                outlet_name = data['outlet_name']
+                hub = dirigera.Hub(
+                    token=token,
+                    ip_address=ip
+                )
+                try:
+                    smart_plug = hub.get_outlet_by_name(outlet_name)
+                except AssertionError as e:
+                    response = flask.jsonify(error=e.args[0])
+                    response.status_code = 400
+                    return flask.abort(response)
+
+                except requests.exceptions.ConnectTimeout as e:
+                    response = flask.jsonify(error="Timeout. Check that the IP address is correct and that the device is on")
+                    response.status_code = 400
+                    return flask.abort(response)
+                except requests.exceptions.HTTPError as e:
+                    if e.response.status_code == 401:
+                        response = flask.jsonify(error="Not authorized. Try to regenerate token")
+                        response.status_code = 400
+                        return flask.abort(response)
+
+                    response = flask.jsonify(error="Unknown error: %s" % e.args[0])
+                    response.status_code = 400
+                    return flask.abort(response)
+
+                return flask.jsonify(success=True, is_on=smart_plug.attributes.is_on)
+            else:
+                return flask.abort(400, "Error: Missing data for testConnection")
         else:
             self._logger.error("Unknown command: %s" % command)
 
@@ -168,19 +203,32 @@ class Psu_control_ikea_dirigeraPlugin(
             "code_challenge_method": "S256",
         }
         error = "Unknown Error"
-        response = requests.get(auth_url, params=params, verify=False, timeout=10)
+        response = {}
+        try:
+            response = requests.get(auth_url, params=params, verify=False, timeout=10)
+        except requests.exceptions.ConnectTimeout as e:
+            error = "Timeout. Check that the IP address is correct and that the device is on"
+            return dict(
+                error=error
+            )
+        except Exception as e:
+            error = "Unexpected Error: %s" % e
+            return dict(
+                error=error
+            )
+
         json = response.json()
         if response.status_code != 200:
 
             if "error" in json:
                 error = "Error: %s" % json["error"]
             else:
-                error = "Unknown Error: %s" % json
+                error = "Unexpected Error: %s" % json
             return dict(
                 error=error
             )
         if "code" not in json:
-            error = "Unknown Response: %s" % json
+            error = "Unexpected Response: %s" % json
         return dict(
             code=json["code"],
             code_verifier=code_verifier,
@@ -200,20 +248,32 @@ class Psu_control_ikea_dirigeraPlugin(
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         token_url = f"https://{ip_address}:8443/v1/oauth/token"
 
-        response = requests.post(
-            token_url, headers=headers, data=data, verify=False, timeout=10
-        )
+        response = {}
+        try:
+            response = requests.post(token_url, headers=headers, data=data, verify=False, timeout=10)
+            response.raise_for_status()
+        except requests.exceptions.ConnectTimeout as e:
+            error = "Timeout. Check that the IP address is correct and that the device is on"
+            return dict(
+                error=error
+            )
+        except Exception as e:
+            error = "Unexpected Error: %s" % e
+            return dict(
+                error=error
+            )
+
         json = response.json()
         if response.status_code != 200:
             if "error" in json:
                 error = "Error: %s" % json["error"]
             else:
-                error = "Unknown Error: %s" % json
+                error = "Unexpected Error: %s" % json
             return dict(
                 error=error
             )
         if "access_token" not in json:
-            error = "Unknown Response: %s" % json
+            error = "Unexpected Response: %s" % json
         return dict(
             token=json["access_token"]
         )

@@ -77,6 +77,33 @@ $(function() {
             this.getTokenSent("false");
             this.getTokenResponse("");
         }
+
+
+        this.testConnectionSent = ko.observable("false");
+        this.testConnectionResponse = ko.observable("");
+        this.testConnectionSuccess = ko.observable("");
+        this.testConnectionIsOutletOn = ko.observable("");
+        this.testConnection = function() {
+
+            this.testConnectionSuccess("");
+            this.testConnectionResponse("");
+            this.testConnectionIsOutletOn("");
+            this.testConnectionSent("true");
+
+            OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'testConnection', {ip_address: this.IP(), token: this.Token(), outlet_name: this.Outlet_Name()})
+            .done((response) => {
+                this.testConnectionResponse(JSON.stringify(response));
+                this.testConnectionSuccess("true");
+                this.testConnectionIsOutletOn(response["is_on"]);
+                console.log(response);
+            })
+            .fail((response) => {
+                var error = response.responseJSON.error;
+
+                this.testConnectionResponse(JSON.stringify(error));
+                this.testConnectionSuccess("false");
+            });
+        }
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its
         // dependencies have already been initialized. It is especially guaranteed that this method
         // gets called _after_ the settings have been retrieved from the OctoPrint backend and thus
@@ -85,7 +112,6 @@ $(function() {
             this.IP(this.settings.settings.plugins.psu_control_ikea_dirigera.IP());
             this.Outlet_Name(this.settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name());
             this.Token(this.settings.settings.plugins.psu_control_ikea_dirigera.Token());
-            this.SendChallengeSuccess(false)
             console.log(this);
         }
     }

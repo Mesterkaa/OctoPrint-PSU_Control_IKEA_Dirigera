@@ -63,9 +63,23 @@
         </div>
     </div>
     <!-- /ko -->
-
-    <br>
-    <h4>Step 6: Remember to Save</h4>
+    <h4>Step 6: Test Connection</h4>
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn" data-bind="click: function(){ testConnection(); }, enable: settings.settings.plugins.psu_control_ikea_dirigera.IP && settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name && settings.settings.plugins.psu_control_ikea_dirigera.Token">Test Connection</button>
+            <!-- ko if: testConnectionSent() === "true" -->
+                <span class="help-inline label">Test Connection Sent</span>
+                <!-- ko if: testConnectionSuccess() === "true" -->
+                    <span class="help-inline label label-success">Success</span>
+                    <span class="help-inline label label-success">Outlet status: <span data-bind="text: testConnectionIsOutletOn() ? 'ON' : 'OFF'"></span></span>
+                <!-- /ko -->
+                <!-- ko if: testConnectionSuccess() === "false" -->
+                    <span class="help-inline label label-important">Failed!! - <span data-bind="text: testConnectionResponse"></span></span>
+                <!-- /ko -->
+            <!-- /ko -->
+         </div>
+    </div>
+    <h4>Step 7: Remember to Save</h4>
     <div class="control-group">
         <div class="controls">
             <span class="help-inline">If at a later point the IP or Outlet Name is changed,</span>
