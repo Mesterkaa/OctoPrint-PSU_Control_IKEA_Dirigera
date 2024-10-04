@@ -43,4 +43,11 @@ Follow the Step-To-Step guide in the Plugin settings.
     - The token has been fetched from the IKEA Dirigera but has yet to be saved.
     - **Remeber to save!!**
 
+## Screenshots
+### Plugin Settings
+<img src="./assets/img/Plugin.png" width="600">
 
+### IKEA Homesmart App
+<img src="./assets/img/IKEAHomeSmart1.png" width="400">
+
+<img src="./assets/img/IKEAHomeSmart2.png" width="400">
