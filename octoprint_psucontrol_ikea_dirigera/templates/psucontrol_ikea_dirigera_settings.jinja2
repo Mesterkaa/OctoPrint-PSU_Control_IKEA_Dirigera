@@ -28,7 +28,7 @@
                 <span class="help-block label label-success">Success</span></span>
                 <!-- /ko -->
                 <!-- ko if: SendChallengeSuccess() === "false" -->
-                <span class="help-block label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
+                <span class="help-block label label-important">Failed! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
                 <!-- /ko -->
                 <!-- /ko -->
         </div>
@@ -50,7 +50,7 @@
             <span class="help-block label label-success">Success</span>
             <!-- /ko -->
             <!-- ko if: GetTokenSuccess() === "false" -->
-            <span class="help-block label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
+            <span class="help-block label label-important">Failed! - Data: <span data-bind="text: getTokenResponse"></span></span>
             <!-- /ko -->
             <!-- /ko -->
         </div>
@@ -74,7 +74,7 @@
                     <span class="help-block label label-success">Outlet status: <span data-bind="text: testConnectionIsOutletOn() ? 'ON' : 'OFF'"></span></span>
                 <!-- /ko -->
                 <!-- ko if: testConnectionSuccess() === "false" -->
-                    <span class="help-block label label-important">Failed!! - <span data-bind="text: testConnectionResponse"></span></span>
+                    <span class="help-block label label-important">Failed! - <span data-bind="text: testConnectionResponse"></span></span>
                 <!-- /ko -->
             <!-- /ko -->
          </div>
