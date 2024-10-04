@@ -25,23 +25,23 @@ Follow the Step-To-Step guide in the Plugin settings.
         - [Android](https://play.google.com/store/apps/details?id=com.ikea.inter.homesmart.system2)
     - The name needs to be unique and can be edited in the app.
 2. **Enter IP Address**
-    - IP Address of the IKEA Dirigera Hub. The app sadly doesn't show it so it has be found in other ways e.g. your router settings.
+    - IP Address of the IKEA Dirigera Hub. The app sadly doesn't show it so it has to be found in other ways e.g. your router settings.
 3. **Send Challenge**
-    - Click the button and await a succes.
+    - Click the button and await a success.
     - A **fail** will be followed by some error data that might give a hint of the error.
 4. **Click Action Button**
-    - On the buttom of the IKEA Dirigera device is a button label **Action**.
-    - Click this on.
+    - On the bottom of the IKEA Dirigera device is a button labeled **Action**.
+    - Click this one.
 5. **Generate Token**
-    - Click the button and await a succes.
-    - A succesfull call will result in **token** in the "Generated Token" field.
+    - Click the button and await a success.
+    - A successful call will result in a **token** in the "Generated Token" field.
     - A **fail** will be followed by some error data that might give a hint of the error.
 6. **Test Connection (Optional)**
-    - Optionally you can test the connection
-    - On a succes you should see the current status of the outlet
-7. **Remeber to Save**
+    - Optionally you can test the connection.
+    - On a success you should see the current status of the outlet.
+7. **Remember to Save**
     - The token has been fetched from the IKEA Dirigera but has yet to be saved.
-    - **Remeber to save!!**
+    - **Remember to save!!**
 
 ## Screenshots
 ### Plugin Settings
