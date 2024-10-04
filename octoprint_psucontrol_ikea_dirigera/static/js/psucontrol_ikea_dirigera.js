@@ -51,6 +51,7 @@ $(function() {
                 console.warn("IP is empty");
                 return;
             }
+            this.ClearGetToken()
             this.getTokenSent("true");
 
             OctoPrint.simpleApiCommand('psucontrol_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
@@ -114,13 +115,12 @@ $(function() {
             this.IP(this.settings.settings.plugins.psucontrol_ikea_dirigera.IP());
             this.Outlet_Name(this.settings.settings.plugins.psucontrol_ikea_dirigera.Outlet_Name());
             this.Token(this.settings.settings.plugins.psucontrol_ikea_dirigera.Token());
-            console.log("onBeforeBinding", this.IP(), this.Outlet_Name(), this.Token());
         }
-        onSettingsBeforeSave = function() {
+        this.onSettingsBeforeSave = function() {
             this.settings.settings.plugins.psucontrol_ikea_dirigera.IP(this.IP())
             this.settings.settings.plugins.psucontrol_ikea_dirigera.Outlet_Name(this.Outlet_Name())
             this.settings.settings.plugins.psucontrol_ikea_dirigera.Token(this.Token())
-            console.log("onSettingsBeforeSave", this.IP(), this.Outlet_Name(), this.Token());
+            console.log("onSettingsBeforeSave IKEA");
         }
 
 
