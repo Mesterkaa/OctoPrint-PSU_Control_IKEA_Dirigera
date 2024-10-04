@@ -15,13 +15,13 @@
     <div class="control-group">
         <label class="control-label">Hub IP Address</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.settings.plugins.psucontrol_ikea_dirigera.IP" placeholder="192.168.0.0">
+            <input type="text" class="input" data-bind="value: IP" placeholder="192.168.0.0">
         </div>
     </div>
     <h4>Step 3: Send Challenge to IKEA Dirigera</h4>
     <div class="control-group">
         <div class="controls">
-            <button class="btn" data-bind="click: function(){ sendChallenge(); }, enable: settings.settings.plugins.psucontrol_ikea_dirigera.IP">Send Challenge</button>
+            <button class="btn" data-bind="click: function(){ sendChallenge(); }, enable: IP">Send Challenge</button>
                 <!-- ko if: SendChallengeSent() === "true"-->
                 <span class="help-inline label">Challenge Sent</span>
                 <!-- ko if: SendChallengeSuccess() === "true" -->
@@ -43,7 +43,7 @@
     <h4>Step 5: Generate Token</h4>
     <div class="control-group">
         <div class="controls">
-            <button class="btn" data-bind="click: function(){ getToken(); }, enable: settings.settings.plugins.psucontrol_ikea_dirigera.IP">Get Token</button>
+            <button class="btn" data-bind="click: function(){ getToken(); }, enable: IP">Get Token</button>
             <!-- ko if: getTokenSent() === "true" -->
             <span class="help-inline label">Challenge Sent</span>
             <!-- ko if: GetTokenSuccess() === "true" -->
@@ -55,18 +55,18 @@
             <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: settings.settings.plugins.psucontrol_ikea_dirigera.Token && settings.settings.plugins.ppsucontrol_ikea_dirigeraToken().length >= 1 -->
+    <!-- ko if: Token && Token().length >= 1 -->
     <div class="control-group">
         <label class="control-label">Generated Token</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.settings.plugins.psucontrol_ikea_dirigera.Token" placeholder="" readonly>
+            <input type="text" class="input" data-bind="value: Token" placeholder="" readonly>
         </div>
     </div>
     <!-- /ko -->
     <h4>Step 6: Test Connection (Optional)</h4>
     <div class="control-group">
         <div class="controls">
-            <button class="btn" data-bind="click: function(){ testConnection(); }, enable: settings.settings.plugins.psucontrol_ikea_dirigera.IP && settings.settings.plugins.ppsucontrol_ikea_dirigeraOutlet_Name && settings.settings.plugins.pspsucontrol_ikea_dirigeraoken">Test Connection</button>
+            <button class="btn" data-bind="click: function(){ testConnection(); }, enable: IP && Outlet_Name && Token">Test Connection</button>
             <!-- ko if: testConnectionSent() === "true" -->
                 <span class="help-inline label">Test Connection Sent</span>
                 <!-- ko if: testConnectionSuccess() === "true" -->

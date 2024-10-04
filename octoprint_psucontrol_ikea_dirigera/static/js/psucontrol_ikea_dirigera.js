@@ -10,6 +10,7 @@ $(function() {
         this.IP = ko.observable();
         this.Outlet_Name = ko.observable();
 
+
         this.SendChallengeSuccess = ko.observable("");
         this.SendChallengeSent = ko.observable("false");
         this.sendChallengeResponse = ko.observable("");
@@ -58,7 +59,7 @@ $(function() {
                 this.GetTokenSuccess("true");
 
                 this.Token(response["token"]);
-                this.settings.settings.plugins.psucontrol_ikea_dirigera.Token(response["token"])
+                this.Token(response["token"])
             })
             .fail((response) => {
                 var error = response.responseJSON.error;
@@ -113,8 +114,16 @@ $(function() {
             this.IP(this.settings.settings.plugins.psucontrol_ikea_dirigera.IP());
             this.Outlet_Name(this.settings.settings.plugins.psucontrol_ikea_dirigera.Outlet_Name());
             this.Token(this.settings.settings.plugins.psucontrol_ikea_dirigera.Token());
-            console.log(this);
+            console.log("onBeforeBinding", this.IP(), this.Outlet_Name(), this.Token());
         }
+        onSettingsBeforeSave = function() {
+            this.settings.settings.plugins.psucontrol_ikea_dirigera.IP(this.IP())
+            this.settings.settings.plugins.psucontrol_ikea_dirigera.Outlet_Name(this.Outlet_Name())
+            this.settings.settings.plugins.psucontrol_ikea_dirigera.Token(this.Token())
+            console.log("onSettingsBeforeSave", this.IP(), this.Outlet_Name(), this.Token());
+        }
+
+
     }
 
     // This is how our plugin registers itthis with the application, by adding some configuration
