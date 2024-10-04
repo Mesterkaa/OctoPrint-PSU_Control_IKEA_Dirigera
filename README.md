@@ -1,5 +1,7 @@
 # OctoPrint Plugin PSU Control IKEA Dirigera
 
+<img src="./assets/img/OctoPrintXIKEA.png" width="400">
+
 IKEA Dirigera subplugin for [PSU Control](https://github.com/kantlivelong/OctoPrint-PSUControl) in [Octoprint](https://octoprint.org/)
 
 Add the ability to control any IKEA Smart outlet connected to IKEA Dirigera Hub, via the PSU Control Plugin.
