@@ -8,7 +8,7 @@ authors:
 - Mesterkaa
 license: AGPLv3
 
-date: 2024-10-03
+date: 2024-10-04
 
 homepage: https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera
 source: https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera
