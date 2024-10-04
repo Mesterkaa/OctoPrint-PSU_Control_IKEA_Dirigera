@@ -285,8 +285,8 @@ class Psu_control_ikea_dirigeraPlugin(
     ##~~ Softwareupdate hook
     def get_assets(self):
         return dict(
-            js=["js/psu_control_ikea_dirigera.js"],
-            css=["css/psu_control_ikea_dirigera.css"]
+            js=["js/psucontrol_ikea_dirigera.js"],
+            css=["css/psucontrol_ikea_dirigera.css"]
         )
     def get_update_information(self):
         # Define the configuration for your plugin to use with the Software Update
@@ -300,11 +300,11 @@ class Psu_control_ikea_dirigeraPlugin(
                 # version check: github repository
                 "type": "github_release",
                 "user": "Mesterkaa",
-                "repo": "OctoPrint-Psu_control_ikea_dirigera",
+                "repo": "OctoPrint-PSU_Control_IKEA_Dirigera",
                 "current": self._plugin_version,
 
                 # update method: pip
-                "pip": "https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera/archive/{target_version}.zip",
+                "pip": "https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera/archive/{target_version}.zip",
             }
         }
 

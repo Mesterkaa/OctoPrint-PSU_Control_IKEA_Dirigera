@@ -14,7 +14,7 @@ Add the ability to control any IKEA Smart outlet connected to IKEA Dirigera Hub,
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
 or manually using this URL:
 
-    https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera/archive/master.zip
+    https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera/archive/main.zip
 
 ## Configuration
 

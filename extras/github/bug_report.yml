@@ -1,12 +1,12 @@
 name: 🐛 Report a bug
-description: Create a bug report to help improve OctoPrint-Psu_control_ikea_dirigera
+description: Create a bug report to help improve OctoPrint-PSU_Control_IKEA_Dirigera
 body:
   - type: markdown
     attributes:
       value: >-
-        **Thank you for wanting to report a bug in OctoPrint-Psu_control_ikea_dirigera!**
+        **Thank you for wanting to report a bug in OctoPrint-PSU_Control_IKEA_Dirigera!**
 
-          * First, be sure you are running the [latest version of the OctoPrint-Psu_control_ikea_dirigera plugin](https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera/releases).
+          * First, be sure you are running the [latest version of the OctoPrint-PSU_Control_IKEA_Dirigera plugin](https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera/releases).
           * You will also need to [enable debugging on the plugin](https://docs.octoprint.org/en/master/configuration/logging_yaml.html).
             * This may be done through the *Settings* > *OctoPrint* > *Logging* > *Logging Levels* section.
             * Select the "octoprint.plugins.PSU_Control_IKEA_Dirigera" name, and make sure Level is "DEBUG".
@@ -35,8 +35,8 @@ body:
         ## Environment
   - type: input
     attributes:
-      label: Version of OctoPrint-Psu_control_ikea_dirigera
-      description: Can be found in *Settings* > *Plugin Manager*, next to "OctoPrint-Psu_control_ikea_dirigera".
+      label: Version of OctoPrint-PSU_Control_IKEA_Dirigera
+      description: Can be found in *Settings* > *Plugin Manager*, next to "OctoPrint-PSU_Control_IKEA_Dirigera".
     validations:
       required: true
   - type: input

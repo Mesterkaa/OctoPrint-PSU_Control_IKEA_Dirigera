@@ -1,7 +1,7 @@
 ---
 layout: plugin
 
-id: psu_control_ikea_dirigera
+id: psucontrol_ikea_dirigera
 title: OctoPrint PSU Control IKEA Dirigera
 description: Adds IKEA Dirigera connected smart Outlet support to OctoPrint-PSUControl as a sub-plugin
 authors:
@@ -10,9 +10,9 @@ license: AGPLv3
 
 date: 2024-10-03
 
-homepage: https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera
-source: https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera
-archive: https://github.com/Mesterkaa/OctoPrint-Psu_control_ikea_dirigera/archive/master.zip
+homepage: https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera
+source: https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera
+archive: https://github.com/Mesterkaa/OctoPrint-PSU_Control_IKEA_Dirigera/archive/main.zip
 
 tags:
 - control
@@ -23,17 +23,17 @@ tags:
 - ikea
 
 screenshots:
-- url: assets/img/plugins/psu_control_ikea_dirigera/Plugin.png
+- url: assets/img/plugins/psucontrol_ikea_dirigera/Plugin.png
   alt: Plugin Settings
   caption: The PSU Control - IKEA Dirigera plugin settings
-- url: assets/img/plugins/psu_control_ikea_dirigera/IKEAHomeSmart1.png
+- url: assets/img/plugins/psucontrol_ikea_dirigera/IKEAHomeSmart1.png
   alt: IKEA Homesmart Device Name
   caption: IKEA Homesmart Device name.
-- url: assets/img/plugins/psu_control_ikea_dirigera/IKEAHomeSmart2.png
+- url: assets/img/plugins/psucontrol_ikea_dirigera/IKEAHomeSmart2.png
   alt: IKEA Homesmart Device Settings
   caption: IKEA Homesmart device settings
 
-featuredimage: /assets/img/psu_control_ikea_dirigera/OctoPrintXIKEA.png
+featuredimage: /assets/img/psucontrol_ikea_dirigera/OctoPrintXIKEA.png
 
 compatibility:
   python: ">=3,<4"

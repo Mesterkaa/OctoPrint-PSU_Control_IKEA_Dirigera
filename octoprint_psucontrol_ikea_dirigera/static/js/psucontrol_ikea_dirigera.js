@@ -28,7 +28,7 @@ $(function() {
             this.ClearSendChallenge();
             this.SendChallengeSent("true");
 
-            OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
+            OctoPrint.simpleApiCommand('psucontrol_ikea_dirigera', 'sendChallenge', {ip_address: this.IP()})
             .done((response) => {
 
                 this.sendChallengeResponse(JSON.stringify(response));
@@ -52,13 +52,13 @@ $(function() {
             }
             this.getTokenSent("true");
 
-            OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
+            OctoPrint.simpleApiCommand('psucontrol_ikea_dirigera', 'getToken', {ip_address: this.IP(), code: this.code, code_verifier: this.code_verifier})
             .done((response) => {
                 this.getTokenResponse(JSON.stringify(response));
                 this.GetTokenSuccess("true");
 
                 this.Token(response["token"]);
-                this.settings.settings.plugins.psu_control_ikea_dirigera.Token(response["token"])
+                this.settings.settings.plugins.psucontrol_ikea_dirigera.Token(response["token"])
             })
             .fail((response) => {
                 var error = response.responseJSON.error;
@@ -91,7 +91,7 @@ $(function() {
             this.testConnectionIsOutletOn("");
             this.testConnectionSent("true");
 
-            OctoPrint.simpleApiCommand('psu_control_ikea_dirigera', 'testConnection', {ip_address: this.IP(), token: this.Token(), outlet_name: this.Outlet_Name()})
+            OctoPrint.simpleApiCommand('psucontrol_ikea_dirigera', 'testConnection', {ip_address: this.IP(), token: this.Token(), outlet_name: this.Outlet_Name()})
             .done((response) => {
                 this.testConnectionResponse(JSON.stringify(response));
                 this.testConnectionSuccess("true");
@@ -110,9 +110,9 @@ $(function() {
         // gets called _after_ the settings have been retrieved from the OctoPrint backend and thus
         // the SettingsViewModel been properly populated.
         this.onBeforeBinding = function() {
-            this.IP(this.settings.settings.plugins.psu_control_ikea_dirigera.IP());
-            this.Outlet_Name(this.settings.settings.plugins.psu_control_ikea_dirigera.Outlet_Name());
-            this.Token(this.settings.settings.plugins.psu_control_ikea_dirigera.Token());
+            this.IP(this.settings.settings.plugins.psucontrol_ikea_dirigera.IP());
+            this.Outlet_Name(this.settings.settings.plugins.psucontrol_ikea_dirigera.Outlet_Name());
+            this.Token(this.settings.settings.plugins.psucontrol_ikea_dirigera.Token());
             console.log(this);
         }
     }
@@ -129,6 +129,6 @@ $(function() {
         dependencies: ["settingsViewModel"],
 
         // Finally, this is the list of selectors for all elements we want this view model to be bound to.
-        elements: ["#settings_plugin_psu_control_ikea_dirigera"]
+        elements: ["#settings_plugin_psucontrol_ikea_dirigera"]
     });
 });
