@@ -1,5 +1,5 @@
 <!-- ko ifnot: settings.settings.plugins.psucontrol -->
-<span class="help-inline label label-important">This plugin requires <a href="https://plugins.octoprint.org/plugins/psucontrol/" target="_blank">PSU Control</a> in order to function. It can be installed from the Plugin Manager.</span>
+<span class="help-block label label-important">This plugin requires <a href="https://plugins.octoprint.org/plugins/psucontrol/" target="_blank">PSU Control</a> in order to function. It can be installed from the Plugin Manager.</span>
 <!-- /ko -->
 <form class="form-horizontal">
     <h3>Generate Token</h3>
@@ -8,7 +8,7 @@
         <label class="control-label">Outlet Name</label>
         <div class="controls">
             <input type="text" class="input" data-bind="value: Outlet_Name" placeholder="3D Printer">
-            <span class="help-inline">This name can be found and edited in the IKEA "Home Smart" App.</span>
+            <span class="help-block">This name can be found and edited in the IKEA "Home Smart" App.</span>
         </div>
     </div>
     <h4>Step 2: Enter IP Address</h4>
@@ -23,21 +23,21 @@
         <div class="controls">
             <button class="btn" data-bind="click: function(){ sendChallenge(); }, enable: IP">Send Challenge</button>
                 <!-- ko if: SendChallengeSent() === "true"-->
-                <span class="help-inline label">Challenge Sent</span>
+                <span class="help-block label">Challenge Sent</span>
                 <!-- ko if: SendChallengeSuccess() === "true" -->
-                <span class="help-inline label label-success">Success</span></span>
+                <span class="help-block label label-success">Success</span></span>
                 <!-- /ko -->
                 <!-- ko if: SendChallengeSuccess() === "false" -->
-                <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
+                <span class="help-block label label-important">Failed!! - Data: <span data-bind="text: sendChallengeResponse"></span></span>
                 <!-- /ko -->
                 <!-- /ko -->
         </div>
     </div>
-    <h4>Step 4: Click Action Button</h4>
+    <h4>Step 4: Press the Action Button</h4>
     <div class="control-group">
         <div class="controls">
-            <span class="help-inline">Click the "Action" Button on the IKEA Dirigera.</span>
-            <span class="help-inline">Can be found on the bottom of the device.</span>
+            <span class="help-block">Press the "Action" Button on the IKEA Dirigera.</span>
+            <span class="help-block">Can be found on the bottom of the device.</span>
          </div>
     </div>
     <h4>Step 5: Generate Token</h4>
@@ -45,12 +45,12 @@
         <div class="controls">
             <button class="btn" data-bind="click: function(){ getToken(); }, enable: IP">Get Token</button>
             <!-- ko if: getTokenSent() === "true" -->
-            <span class="help-inline label">Challenge Sent</span>
+            <span class="help-block label">Challenge Sent</span>
             <!-- ko if: GetTokenSuccess() === "true" -->
-            <span class="help-inline label label-success">Success</span>
+            <span class="help-block label label-success">Success</span>
             <!-- /ko -->
             <!-- ko if: GetTokenSuccess() === "false" -->
-            <span class="help-inline label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
+            <span class="help-block label label-important">Failed!! - Data: <span data-bind="text: getTokenResponse"></span></span>
             <!-- /ko -->
             <!-- /ko -->
         </div>
@@ -68,13 +68,13 @@
         <div class="controls">
             <button class="btn" data-bind="click: function(){ testConnection(); }, enable: IP && Outlet_Name && Token">Test Connection</button>
             <!-- ko if: testConnectionSent() === "true" -->
-                <span class="help-inline label">Test Connection Sent</span>
+                <span class="help-block label">Test Connection Sent</span>
                 <!-- ko if: testConnectionSuccess() === "true" -->
-                    <span class="help-inline label label-success">Success</span>
-                    <span class="help-inline label label-success">Outlet status: <span data-bind="text: testConnectionIsOutletOn() ? 'ON' : 'OFF'"></span></span>
+                    <span class="help-block label label-success">Success</span>
+                    <span class="help-block label label-success">Outlet status: <span data-bind="text: testConnectionIsOutletOn() ? 'ON' : 'OFF'"></span></span>
                 <!-- /ko -->
                 <!-- ko if: testConnectionSuccess() === "false" -->
-                    <span class="help-inline label label-important">Failed!! - <span data-bind="text: testConnectionResponse"></span></span>
+                    <span class="help-block label label-important">Failed!! - <span data-bind="text: testConnectionResponse"></span></span>
                 <!-- /ko -->
             <!-- /ko -->
          </div>
@@ -82,10 +82,10 @@
     <h4>Step 7: Remember to Save</h4>
     <div class="control-group">
         <div class="controls">
-            <span class="help-inline">A token have been fetched. Now <mark>Remember to save!!</mark></span>
-            <span class="help-inline">If at a later point the IP or Outlet Name is changed,</span>
-            <span class="help-inline">but it's the same IKEA Dirigera device,</span>
-            <span class="help-inline">there is no need to generate a new token.</span>
+            <span class="help-block">A token have been fetched. Now <mark>Remember to save!</mark></span>
+            <span class="help-block">If at a later point the IP or Outlet Name is changed,</span>
+            <span class="help-block">but it's the same IKEA Dirigera device,</span>
+            <span class="help-block">there is no need to generate a new token.</span>
          </div>
     </div>
 </form>
