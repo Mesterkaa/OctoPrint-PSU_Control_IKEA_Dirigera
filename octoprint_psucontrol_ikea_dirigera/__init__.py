@@ -293,7 +293,7 @@ class Psu_control_ikea_dirigeraPlugin(
         # Plugin here. See https://docs.octoprint.org/en/master/bundledplugins/softwareupdate.html
         # for details.
         return {
-            "PSU_Control_IKEA_Dirigera": {
+            "psucontrol_ikea_dirigera": {
                 "displayName": "PSU Control - IKEA Dirigera Plugin",
                 "displayVersion": self._plugin_version,
 
